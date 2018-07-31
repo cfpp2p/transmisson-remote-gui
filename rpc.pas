@@ -365,8 +365,12 @@ begin
     sl.Free;
   end;
 
+  { Items we want that can change }
+
   args:=FRpc.RequestInfo(0, ['id', 'name', 'status', 'errorString', 'announceResponse', 'recheckProgress',
-                             'sizeWhenDone', 'leftUntilDone', 'rateDownload', 'rateUpload', 'trackerStats', 'uploadedEver'], ExtraFields);
+                             'sizeWhenDone', 'leftUntilDone', 'rateDownload', 'rateUpload', 'trackerStats',
+                             'uploadedEver', 'uploadLimited', 'downloadLimited', 'uploadLimit', 'downloadLimit']
+                             , ExtraFields);
   try
     if (args <> nil) and not Terminated then begin
       FRpc.RequestFullInfo:=False;
@@ -456,8 +460,7 @@ begin
                                      'seeders','peersGettingFromUs','leechers', 'uploadRatio', 'addedDate', 'doneDate',
                                      'activityDate', 'downloadLimited', 'uploadLimited', 'downloadDir', 'id','pieces',
                                      'trackerStats', 'secondsDownloading', 'secondsSeeding', 'streamingMode', 'cheatMode',
-                                     'isPrivate', 'blocklistOverride', 'uploadLimited', 'downloadLimited', 'uploadLimit',
-                                     'downloadLimit'],ExtraFields);
+                                     'isPrivate', 'blocklistOverride'],ExtraFields);
   try
     if args <> nil then begin
       t:=args.Arrays['torrents'];

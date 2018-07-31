@@ -3202,11 +3202,16 @@ begin
 
       idxUploadLimit:
         begin
+          j:=Sender.Items[idxUploadLimit, ARow];
           if Sender.Items[idxUploadLimited, ARow] = 0 then
-             Text:='-'
+              begin
+                if (j < 0) or (j >= 2097152) then
+                  Text:='*'+Utf8Encode(WideString(WideChar($221E)))
+                else
+                  Text:='*'+GetHumanSize(j*1024)+sPerSecond;
+              end
           else
           begin
-            j:=Sender.Items[idxUploadLimit, ARow];
             if Sender.Items[idxUploadLimited, ARow] <> 99999 then
               begin
                 if (j < 0) or (j >= 2097152) then
@@ -3217,20 +3222,25 @@ begin
             else
               begin
                 if (j < 0) or (j >= 2097152) then
-                  Text:='*'+Utf8Encode(WideString(WideChar($221E)))
+                  Text:='?'+Utf8Encode(WideString(WideChar($221E)))
                 else
-                  Text:='*'+GetHumanSize(j*1024)+sPerSecond;
+                  Text:='?'+GetHumanSize(j*1024)+sPerSecond;
               end
           end
         end;
 
       idxDownloadLimit:
         begin
+          j:=Sender.Items[idxDownloadLimit, ARow];
           if Sender.Items[idxDownloadLimited, ARow] = 0 then
-             Text:='-'
+              begin
+                if (j < 0) or (j >= 2097152) then
+                  Text:='*'+Utf8Encode(WideString(WideChar($221E)))
+                else
+                  Text:='*'+GetHumanSize(j*1024)+sPerSecond;
+              end
           else
           begin
-            j:=Sender.Items[idxDownloadLimit, ARow];
             if Sender.Items[idxDownloadLimited, ARow] <> 99999 then
               begin
                 if (j < 0) or (j >= 2097152) then
@@ -3241,9 +3251,9 @@ begin
             else
               begin
                 if (j < 0) or (j >= 2097152) then
-                  Text:='*'+Utf8Encode(WideString(WideChar($221E)))
+                  Text:='?'+Utf8Encode(WideString(WideChar($221E)))
                 else
-                  Text:='*'+GetHumanSize(j*1024)+sPerSecond;
+                  Text:='?'+GetHumanSize(j*1024)+sPerSecond;
               end
           end
         end;
@@ -4517,14 +4527,16 @@ begin
     else FTorrents[idxUploadLimited, row]:=99999;
 
     if t.IndexOfName('uploadLimit') >= 0 then
-      FTorrents[idxUploadLimit, row]:=t.Integers['uploadLimit'];
+      FTorrents[idxUploadLimit, row]:=t.Integers['uploadLimit']
+    else FTorrents[idxUploadLimited, row]:=99999;
 
     if t.IndexOfName('downloadLimited') >= 0 then
       FTorrents[idxDownloadLimited, row]:=t.Integers['downloadLimited']
     else FTorrents[idxDownloadLimited, row]:=99999;
 
     if t.IndexOfName('downloadLimit') >= 0 then
-      FTorrents[idxDownloadLimit, row]:=t.Integers['downloadLimit'];
+      FTorrents[idxDownloadLimit, row]:=t.Integers['downloadLimit']
+    else FTorrents[idxDownloadLimited, row]:=99999;
 
     DownSpeed:=DownSpeed + FTorrents[idxDownSpeed, row];
     UpSpeed:=UpSpeed + FTorrents[idxUpSpeed, row];
