@@ -4522,20 +4522,20 @@ begin
     if t.IndexOfName('blocklistOverride') >= 0 then
       FTorrents[idxBlocklistOverride, row]:=t.Integers['blocklistOverride'];
 
-    if t.IndexOfName('uploadLimited') >= 0 then
-      FTorrents[idxUploadLimited, row]:=t.Integers['uploadLimited']
-    else FTorrents[idxUploadLimited, row]:=99999;
-
     if t.IndexOfName('uploadLimit') >= 0 then
       FTorrents[idxUploadLimit, row]:=t.Integers['uploadLimit']
     else FTorrents[idxUploadLimited, row]:=99999;
 
-    if t.IndexOfName('downloadLimited') >= 0 then
-      FTorrents[idxDownloadLimited, row]:=t.Integers['downloadLimited']
-    else FTorrents[idxDownloadLimited, row]:=99999;
+    if t.IndexOfName('uploadLimited') >= 0 then
+      FTorrents[idxUploadLimited, row]:=t.Integers['uploadLimited']
+    else FTorrents[idxUploadLimited, row]:=99999;
 
     if t.IndexOfName('downloadLimit') >= 0 then
       FTorrents[idxDownloadLimit, row]:=t.Integers['downloadLimit']
+    else FTorrents[idxDownloadLimited, row]:=99999;
+
+    if t.IndexOfName('downloadLimited') >= 0 then
+      FTorrents[idxDownloadLimited, row]:=t.Integers['downloadLimited']
     else FTorrents[idxDownloadLimited, row]:=99999;
 
     DownSpeed:=DownSpeed + FTorrents[idxDownSpeed, row];

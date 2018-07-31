@@ -365,11 +365,11 @@ begin
     sl.Free;
   end;
 
-  { Items we want that can change }
+  { Items we want idx? always }
 
   args:=FRpc.RequestInfo(0, ['id', 'name', 'status', 'errorString', 'announceResponse', 'recheckProgress',
                              'sizeWhenDone', 'leftUntilDone', 'rateDownload', 'rateUpload', 'trackerStats',
-                             'uploadedEver', 'uploadLimited', 'downloadLimited', 'uploadLimit', 'downloadLimit']
+                             'uploadedEver', 'uploadLimited', 'downloadLimited']
                              , ExtraFields);
   try
     if (args <> nil) and not Terminated then begin
