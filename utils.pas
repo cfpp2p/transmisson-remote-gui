@@ -389,7 +389,19 @@ end;
 
 function UpdateGeoIp: integer;
 begin
+{$ifdef mswindows}
     Result:=ShellExecute(0, nil, PChar('geoipupd.cmd'), nil, nil, 1);
+{$endif mswindows}
+
+{$ifdef darwin}
+  Result:=2;
+{$else darwin}
+
+  {$ifdef unix}
+    Result:=2;
+  {$endif unix}
+
+{$endif darwin}
 end;
 
 var
